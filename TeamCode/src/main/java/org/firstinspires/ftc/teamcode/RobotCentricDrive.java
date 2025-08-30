@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -44,15 +45,21 @@ public class RobotCentricDrive extends LinearOpMode{
             //Using Math.max() prevents scaling up unnecesary values.
             //The 1 helps keeps the demoniator and dividing "even"
             double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
-            double frontLeftMotorPower = (y-x-rx) / denominator;
-            double backLeftMotorPower = (y+x-rx) /  denominator;
-            double frontRightMotorPower = (y+x+rx) / denominator;
-            double backRightMotorPower = (y-x+rx) / denominator;
+            double frontLeftMotorPower = (y + x + rx) / denominator;
+            double backLeftMotorPower = (y - x + rx) / denominator;
+            double frontRightMotorPower = (y - x - rx) / denominator;
+            double backRightMotorPower = (y + x - rx) / denominator;
+
 
             frontLeftMotor.setPower(frontLeftMotorPower);
             backLeftMotor.setPower(backLeftMotorPower);
             frontRightMotor.setPower(frontRightMotorPower);
             backRightMotor.setPower(backRightMotorPower);
+
+            frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            backLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
         }
